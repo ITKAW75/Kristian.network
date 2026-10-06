@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Download Kristian’s resume and play Flappy Packet.">
+  <title>Kristian — Resume &amp; Flappy Packet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%23344e70%22%2F%3E%3Cpath%20d%3D%22m11%2011-5%205%205%205m10-10%205%205-5%205m-3-14-4%2018%22%20fill%3D%22none%22%20stroke%3D%22%23f8f7f3%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E%0A" type="image/svg+xml">
+  <style>
+:root{--paper:#f8f7f3;--ink:#303b4b;--muted:#657080;--line:#dde1e7;--accent:#344e70;--serif:Georgia,'Times New Roman',serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button:disabled{opacity:.45;cursor:default}
+a:focus-visible,button:focus-visible,canvas:focus-visible{outline:3px solid #b77847;outline-offset:5px}
+.wrap{max-width:1120px;margin:auto;padding:48px 40px 48px}
+h1{font:39px/1.2 var(--serif);font-weight:400;letter-spacing:-.8px;text-align:center;margin:0 0 28px}
+.period{color:#929fb1}
+.button{border:0;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:14px 22px;font-weight:500;font-size:15px;transition:background .2s,transform .2s}.primary{color:#fff;background:var(--accent);box-shadow:0 3px 5px #21355012}.primary:hover{background:#293e5b;transform:translateY(-1px)}
+.game-shell{border:1px solid #d8dfe7;border-radius:16px;overflow:hidden;background:#fffefa;box-shadow:0 12px 32px #30456008}.game-toolbar,.game-bottom{display:flex;align-items:center;justify-content:space-between;padding:17px 24px;gap:15px}.game-toolbar{border-bottom:1px solid var(--line)}.game-name{font:11px monospace;letter-spacing:.12em;display:flex;gap:10px;align-items:center}.live-mark{width:9px;height:9px;border:2px solid #8a9b78;border-radius:3px}.stats{display:flex;gap:25px;color:var(--muted);font-size:13px}.stats strong{font:20px monospace;color:var(--ink);margin-left:7px}.arena{position:relative;background:#eef2f6}.arena canvas{width:100%;display:block;aspect-ratio:960/420;touch-action:manipulation}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:22px;background:#f3f5f8db}.overlay[hidden]{display:none}.overlay-kicker{font:10px monospace;letter-spacing:.14em;color:#63748b}.overlay h3{font:43px/1.1 var(--serif);letter-spacing:-1px;margin:15px 0 10px}.overlay p{font-size:15px;color:var(--muted);margin:0 0 20px}.overlay .button{padding:11px 24px}.keyboard-hint{font-size:12px;color:var(--muted);margin-top:14px}kbd{font:11px monospace;border:1px solid #cbd3df;border-radius:4px;padding:2px 5px;background:#fff8}.game-bottom{border-top:1px solid var(--line);font-size:13px;color:var(--muted);padding-block:12px}.game-bottom>div{display:flex;gap:8px}.small-button{background:none;border:1px solid #d6dde6;border-radius:6px;padding:6px 10px;font-size:12px;color:var(--ink);min-height:36px}.small-button kbd{margin-left:8px}
+.resume-area{text-align:center;margin:0 0 32px}
+.game-toolbar{flex-wrap:wrap;justify-content:flex-end}
+.game-bottom{justify-content:flex-end}
+.resume{border-radius:999px;padding:15px 26px;box-shadow:0 5px 15px #21355012}
+.overlay[data-state="over"] .overlay-kicker{font:600 16px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:.05em;color:var(--accent)}
+.overlay[data-state="paused"] h3{font-family:'Arial Rounded MT Bold','Trebuchet MS','Segoe UI',sans-serif;font-weight:600;letter-spacing:-1.4px;line-height:1.2}
+.skip{position:absolute;left:15px;top:-100px;background:white;padding:10px;z-index:3}.skip:focus{top:10px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:750px){.wrap{padding:32px 24px 36px}h1{font-size:39px;margin-bottom:24px}.arena canvas{aspect-ratio:1.35}.game-toolbar,.game-bottom{padding-inline:15px}.game-bottom{flex-wrap:wrap}.overlay h3{font-size:35px}.overlay-kicker{font-size:9px}.stats{gap:13px}.resume-area{margin-bottom:28px}.resume{gap:14px;font-size:14px;padding-inline:18px}}
+@media(prefers-reduced-motion:reduce){.button{transition:none}}
+
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <main id="main" class="wrap">
+    <div class="resume-area"><a class="button primary resume" href="assets/resume.pdf" download>Download resume <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5"/></svg></a></div>
+    <section id="play" class="play" aria-labelledby="game-title">
+      <h1 id="game-title">Flappy Packet<span class="period">.</span></h1>
+      <div class="game-shell">
+        <div class="game-toolbar"><div class="stats"><span>Hops <strong id="score">00</strong></span><span>Best <strong id="best">00</strong></span></div></div>
+        <div class="arena" id="arena">
+          <canvas id="game" width="960" height="420" tabindex="0" aria-label="Flappy Packet play area. Space to start or flap. Match the color and letter of your packet. Avoid firewalls and hazards." aria-describedby="instructions">Your browser needs canvas support to play Flappy Packet.</canvas>
+          <div class="overlay" id="overlay"><span class="overlay-kicker" id="overlay-kicker">A TINY NETWORK ADVENTURE</span><h3 id="overlay-title">Find your flow.</h3><p id="overlay-message">Catch your color. Keep the packet moving.</p><button class="button primary" id="start">Start routing</button><span class="keyboard-hint">or press <kbd>Space</kbd> in the game</span></div>
+        </div>
+        <div class="game-bottom"><button id="flap" class="small-button">Flap <kbd>Space</kbd></button></div>
+      </div>
+      <p class="sr-only" id="instructions">Space, click, or tap to flap. Your packet travels right automatically. Match your packet’s color and letter for +1 hop. Other packets, fire, the ceiling, and the floor end the run. Every run gets a random route color.</p>
+      <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+      <noscript><p>Enable JavaScript to play. The rest of this site and the resume download work without it.</p></noscript>
+    </section>
+  </main>
+<script>
+/* Maintenance: tune speed, gravity, flap, and spacing here. No libraries needed. */
+const SETTINGS = { gravity: 720, flap: -270, speed: 155, spacing: 325, ceiling: 25, floor: 395, radius: 16 };
+const COLORS = [
+  { name: 'Sage', label: 'S', fill: '#d2e2c9', ink: '#426440' },
+  { name: 'Blue', label: 'B', fill: '#d2e3ed', ink: '#376781' },
+  { name: 'Rose', label: 'R', fill: '#edd5ce', ink: '#94504a' }
+];
+
+class PacketGame {
+  constructor(random = Math.random) { this.random = random; this.state = 'ready'; this.color = 0; this.score = 0; this.x = 110; this.y = 210; this.objects = []; }
+  start(width = 960) {
+    this.width = width; this.color = Math.floor(this.random() * COLORS.length);
+    this.x = 110; this.y = 210; this.vy = SETTINGS.flap; this.score = 0;
+    this.objects = []; this.nextX = Math.min(width - 40, 490); this.lastLane = 1;
+    this.state = 'playing'; this.reason = ''; this.spawn();
+  }
+  flap() { if (this.state === 'playing') this.vy = SETTINGS.flap; }
+  spawn() {
+    while (this.nextX < this.x + this.width + SETTINGS.spacing) {
+      // Each column offers one valid destination. Adjacent routes stay reachable.
+      const lanes = [105, 210, 315];
+      const options = [0, 1, 2].filter(lane => Math.abs(lane - this.lastLane) <= 1);
+      const safe = options[Math.floor(this.random() * options.length)];
+      lanes.forEach((y, lane) => {
+        const good = lane === safe;
+        this.objects.push({ x: this.nextX, y: y + (this.random() - .5) * 24, color: good ? this.color : (this.color + 1 + Math.floor(this.random() * 2)) % 3, fire: !good && this.random() < .3, collected: false });
+      });
+      this.lastLane = safe; this.nextX += SETTINGS.spacing + this.random() * 50;
+    }
+  }
+  end(reason) { this.state = 'over'; this.reason = reason; }
+  update(dt) {
+    if (this.state !== 'playing') return;
+    this.x += (SETTINGS.speed + Math.min(this.score * 3, 60)) * dt;
+    this.vy += SETTINGS.gravity * dt; this.y += this.vy * dt;
+    if (this.y - SETTINGS.radius <= SETTINGS.ceiling || this.y + SETTINGS.radius >= SETTINGS.floor) { this.end('You reached a firewall.'); return; }
+    for (const item of this.objects) {
+      if (!item.collected && Math.abs(item.x - this.x) < 32 && Math.abs(item.y - this.y) < 30) {
+        if (item.fire || item.color !== this.color) { this.end(item.fire ? 'A malicious packet blocked the route.' : 'That packet belongs to another route.'); return; }
+        item.collected = true; this.score++;
+      }
+    }
+    this.objects = this.objects.filter(item => item.x > this.x - this.width);
+    this.spawn();
+  }
+}
+
+if (typeof module !== 'undefined') module.exports = { PacketGame, SETTINGS, COLORS };
+if (typeof document !== 'undefined') {
+  const canvas = document.querySelector('#game'), ctx = canvas.getContext('2d');
+  const game = new PacketGame();
+  const ui = Object.fromEntries(['overlay','overlay-kicker','overlay-title','overlay-message','start','score','best','flap','announcement'].map(id => [id, document.getElementById(id)]));
+  let width = 960, best = 0, last = 0, accumulator = 0, camera = 0;
+  try { best = Math.max(0, Number(localStorage.getItem('flappy-packet-best')) || 0); } catch (_) { /* Private browsing can disable storage. */ }
+  ui.best.textContent = String(best).padStart(2, '0');
+  function resize() {
+    const rect = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = 420 * rect.width / rect.height;
+    canvas.width = Math.round(rect.width * dpr); canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(canvas.width / width, 0, 0, canvas.height / 420, 0, 0);
+    game.width = width; draw();
+  }
+  function packet(x, y, color, player = false) {
+    const c = COLORS[color];
+    ctx.save(); ctx.translate(x, y);
+    if (player) { ctx.strokeStyle = c.ink; ctx.globalAlpha = .35; ctx.beginPath(); ctx.moveTo(-27, -5); ctx.lineTo(-42, -5); ctx.moveTo(-28, 5); ctx.lineTo(-36, 5); ctx.stroke(); ctx.globalAlpha = 1; }
+    ctx.fillStyle = c.fill; ctx.strokeStyle = c.ink; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.roundRect(-16, -16, 32, 32, 5); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-15, -7); ctx.lineTo(15, -7); ctx.stroke();
+    [-10,-6,-2].forEach(px => { ctx.fillStyle=c.ink; ctx.fillRect(px,-12,2,2); });
+    // Network header and branching nodes distinguish this icon from a suitcase.
+    ctx.beginPath(); ctx.moveTo(-7,-2); ctx.lineTo(-7,7); ctx.moveTo(-11,7); ctx.lineTo(-3,7); ctx.stroke();
+    [[-9,-3],[-13,6],[-5,6]].forEach(([px,py])=>ctx.strokeRect(px,py,4,4));
+    ctx.fillStyle=c.ink; ctx.font='bold 12px sans-serif'; ctx.textAlign='center'; ctx.fillText(c.label,8,10);
+    ctx.restore();
+  }
+  function fire(x,y) {
+    ctx.save(); ctx.translate(x,y); ctx.fillStyle='#efd7b9';ctx.strokeStyle='#a56b39';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(0,-18);ctx.bezierCurveTo(5,-3,19,-2,12,12);ctx.bezierCurveTo(6,23,-15,17,-13,3);ctx.lineTo(-6,-7);ctx.lineTo(-5,3);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.fillStyle='#895225';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.fillText('!',0,11);ctx.restore();
+  }
+  function draw() {
+    ctx.clearRect(0,0,width,420);ctx.fillStyle='#eef2f6';ctx.fillRect(0,0,width,420);
+    camera = Math.max(0, game.x - width * .24);
+    ctx.strokeStyle='#dfe5ed';ctx.lineWidth=.6;
+    for(let x=-(camera%32);x<width;x+=32){ctx.beginPath();ctx.moveTo(x,25);ctx.lineTo(x,395);ctx.stroke();}
+    for(let y=43;y<395;y+=32){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y);ctx.stroke();}
+    ctx.fillStyle='#e6ddce';ctx.fillRect(0,0,width,25);ctx.fillRect(0,395,width,25);
+    ctx.strokeStyle='#c8b493';ctx.lineWidth=1;
+    for(let x=-(camera%22)-22;x<width;x+=22){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+25,25);ctx.moveTo(x,395);ctx.lineTo(x+25,420);ctx.stroke();}
+    ctx.fillStyle='#eee7da';ctx.fillRect(width/2-62,3,124,18);ctx.fillRect(width/2-62,398,124,18);
+    ctx.fillStyle='#76664f';ctx.font='10px monospace';ctx.textAlign='center';ctx.fillText('FIREWALL / AVOID',width/2,16);ctx.fillText('FIREWALL / AVOID',width/2,411);
+    if(game.state==='ready'){packet(width*.2,210,0,true);packet(width*.72,135,0);packet(width*.84,280,1);fire(width*.56,300);}
+    else { for(const item of game.objects){const sx=item.x-camera;if(!item.collected && sx > -30 && sx < width+30){if(item.fire)fire(sx,item.y);else packet(sx,item.y,item.color);}} packet(game.x-camera,game.y,game.color,true); }
+  }
+  function start() {
+    game.start(width); ui.overlay.hidden=true;ui.overlay.dataset.state='playing';
+    ui.score.textContent='00';ui.announcement.textContent=`New run. Match ${COLORS[game.color].name}, letter ${COLORS[game.color].label}.`;
+    accumulator=0;canvas.focus({preventScroll:true});
+  }
+  function action(){if(game.state==='ready'||game.state==='over')start();else if(game.state==='paused')togglePause();else game.flap();}
+  function togglePause(){
+    if(game.state==='playing'){game.state='paused';ui.overlay.hidden=false;ui.overlay.dataset.state='paused';ui['overlay-kicker'].textContent='TAKE A BREATHER';ui['overlay-title'].textContent='Route paused.';ui['overlay-message'].textContent='Your packet will be right here.';ui.start.textContent='Resume routing';}
+    else if(game.state==='paused'){game.state='playing';ui.overlay.hidden=true;ui.overlay.dataset.state='playing';accumulator=0;canvas.focus({preventScroll:true});}
+  }
+  function finish(){
+    best=Math.max(best,game.score);try{localStorage.setItem('flappy-packet-best',String(best));}catch(_){}
+    ui.best.textContent=String(best).padStart(2,'0');ui.overlay.hidden=false;ui.overlay.dataset.state='over';
+    ui['overlay-kicker'].textContent=`${game.score} SUCCESSFUL ${game.score===1?'HOP':'HOPS'}`;
+    ui['overlay-title'].textContent='Another route awaits.';ui['overlay-message'].textContent=game.reason;ui.start.textContent='Try another route';
+    ui.announcement.textContent=`Game over. ${game.reason} Score ${game.score}. Press Space to restart.`;
+  }
+  ui.start.addEventListener('click',()=>game.state==='paused'?togglePause():start());
+  ui.flap.addEventListener('click',()=>{action();canvas.focus({preventScroll:true});});
+  canvas.addEventListener('pointerdown',event=>{if(event.button>0)return;event.preventDefault();canvas.focus({preventScroll:true});action();});
+  document.querySelector('.game-shell').addEventListener('keydown',event=>{
+    if(event.code==='Space'){
+      // Native buttons own Space; prevent scrolling only when the canvas owns it.
+      if(event.target.tagName==='BUTTON')return;
+      event.preventDefault();if(!event.repeat)action();
+    }
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&game.state==='playing')togglePause();});
+  window.addEventListener('blur',()=>{if(game.state==='playing')togglePause();});
+  function frame(time){
+    const dt=Math.min((time-last)/1000,.05);last=time;
+    if(game.state==='playing'){
+      accumulator+=dt;
+      while(accumulator>=1/120&&game.state==='playing'){game.update(1/120);accumulator-=1/120;}
+      ui.score.textContent=String(game.score).padStart(2,'0');if(game.state==='over')finish();
+      draw();
+    }
+    requestAnimationFrame(frame);
+  }
+  new ResizeObserver(resize).observe(canvas);resize();requestAnimationFrame(frame);
+}
+
+</script>
+</body>
+</html>
