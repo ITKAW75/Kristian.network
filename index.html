@@ -75,23 +75,12 @@ return { connected: true };</pre>
 <main><div class="identity">
 <p class="domain">kristian.network</p>
 <h1>Kristian Weeks</h1>
-<a id="resume" class="resume" role="link" aria-disabled="true" aria-describedby="resume-note">Download résumé<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg></a>
-<p id="resume-note" class="pending">Updated résumé coming soon.</p>
+<a id="resume" class="resume" href="KristianWeeksResume.pdf" download="Kristian-Weeks-Resume.pdf">Download résumé<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg></a>
 <nav class="games" aria-label="Games"><a href="https://flappypacket.com">Flappy Packet<span class="arrow" aria-hidden="true">↗</span></a><span class="divider" aria-hidden="true"></span><a href="https://verdantisles.com">Verdant Isles<span class="arrow" aria-hidden="true">↗</span></a></nav>
 </div></main>
 <button class="motion" type="button" aria-label="Pause background motion" aria-pressed="false" hidden><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 3h2v10H4zm6 0h2v10h-2z"/></svg></button>
 <script>
 'use strict';
-// Set the relative URL only after the approved final resume is uploaded.
-const RESUME_URL = null;
-const resume = document.querySelector('#resume');
-if (RESUME_URL) {
-  resume.href = RESUME_URL;
-  resume.setAttribute('download', 'Kristian-Weeks-Resume' + RESUME_URL.slice(RESUME_URL.lastIndexOf('.')));
-  resume.removeAttribute('aria-disabled');
-  resume.removeAttribute('aria-describedby');
-  document.querySelector('#resume-note').hidden = true;
-}
 const motion = document.querySelector('.motion');
 const preference = matchMedia('(prefers-reduced-motion: reduce)');
 let userPaused = false;
