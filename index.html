@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1412">
-<meta name="description" content="Kristian Weeks. Résumé, Flappy Packet, and Verdant Isles.">
+<meta name="description" content="Kristian Weeks. Résumé, software projects, and games.">
 <title>Kristian Weeks</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1412'/%3E%3Cpath d='M10 8v16m12-16-12 9 12 7' stroke='%23b5d9c6' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <style>
@@ -11,11 +11,12 @@
 *{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100svh;color:var(--ink);background:radial-gradient(ellipse at 50% 45%,#1a2d24 0%,#0e1915 42%,var(--bg) 78%);font-family:Arial,Helvetica,sans-serif}body::after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.95%,#a6d0b606 50%,transparent 50.05%),linear-gradient(transparent 49.95%,#a6d0b606 50%,transparent 50.05%)}::selection{color:var(--bg);background:var(--green)}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:6px}
 .code-field{position:fixed;inset:0;overflow:hidden;pointer-events:none;user-select:none;mask-image:radial-gradient(ellipse at 50% 48%,transparent 15%,#0008 48%,#000 85%)}.code{position:absolute;margin:0;font:11px/2.1 var(--mono);letter-spacing:.04em;color:#8cb49d;opacity:.13;white-space:pre;animation:drift 70s ease-in-out infinite alternate}.code span{color:#d6e5ab}.code-a{top:7%;left:4%}.code-b{top:4%;right:3%;animation-delay:-29s}.code-c{bottom:3%;left:7%;animation-delay:-42s}.code-d{bottom:5%;right:5%;animation-delay:-16s}
 main{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center}.identity{margin-top:-28px}.domain{margin:0 0 26px;font:11px/1.5 var(--mono);letter-spacing:.18em;color:var(--muted)}.domain::before{content:"";display:inline-block;width:5px;height:5px;margin-right:11px;border-radius:50%;background:#9cbea8;vertical-align:2px;box-shadow:0 0 12px #9cbea844}h1{font-size:clamp(42px,6.4vw,76px);line-height:1.08;letter-spacing:-.055em;font-weight:400;margin:0 0 38px}
-.resume{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:52px;padding:0 25px;border:1px solid #c8e2d148;border-radius:7px;background:var(--green);color:#172b20;font:500 13px var(--mono);transition:background .2s,transform .2s}.resume:not([aria-disabled="true"]):hover{background:#d3e7dc;transform:translateY(-2px)}.resume[aria-disabled="true"]{cursor:default}.resume svg{width:16px;height:16px}.pending{margin:13px 0 0;font:10px/1.5 var(--mono);color:#a1b5aa}.games{display:flex;align-items:center;justify-content:center;gap:25px;margin-top:57px;font:12px/1.5 var(--mono)}.games a{color:#a9bdb0;padding:10px 0;transition:color .2s}.games a:hover{color:#e9eeea}.arrow{margin-left:6px;opacity:.55}.divider{width:1px;height:12px;background:#9ab5a133}
+.resume{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:52px;padding:0 25px;border:1px solid #c8e2d148;border-radius:7px;background:var(--green);color:#172b20;font:500 13px var(--mono);transition:background .2s,transform .2s}.resume:not([aria-disabled="true"]):hover{background:#d3e7dc;transform:translateY(-2px)}.resume[aria-disabled="true"]{cursor:default}.resume svg{width:16px;height:16px}.pending{margin:13px 0 0;font:10px/1.5 var(--mono);color:#a1b5aa}.games{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:25px;margin-top:57px;font:12px/1.5 var(--mono)}.games a{color:#a9bdb0;padding:10px 0;transition:color .2s}.games a:hover{color:#e9eeea}.arrow{margin-left:6px;opacity:.55}.divider{width:1px;height:12px;background:#9ab5a133}
 .motion{position:fixed;z-index:2;right:24px;bottom:22px;display:flex;align-items:center;justify-content:center;width:40px;height:40px;color:#92aa9b;border:1px solid #a6c0af22;border-radius:50%;background:#0b141280;cursor:pointer}.motion[hidden]{display:none}.motion:hover{border-color:#a6c0af66;color:var(--ink)}.motion svg{width:12px;height:12px}body[data-paused="true"] .code{animation-play-state:paused}@keyframes drift{from{transform:translateY(-8px)}to{transform:translateY(18px)}}
 @media(max-width:600px){.code{font-size:9px;opacity:.1}.code-a{left:-135px;top:4%}.code-b{right:-180px;top:12%}.code-c{left:-160px;bottom:2%}.code-d{right:-150px;bottom:9%}.identity{margin-top:-15px}h1{margin-bottom:32px}.domain{font-size:10px}.games{gap:19px;margin-top:43px;font-size:11px}.motion{right:14px;bottom:14px}}
 @media(prefers-reduced-motion:reduce){.code{animation:none}.resume,.games a{transition:none}.motion{display:none}}
 @media(max-height:500px){main{padding:35px 20px}.identity{margin-top:0}.domain{margin-bottom:12px}h1{font-size:42px;margin-bottom:20px}.games{margin-top:20px}}
+.projects{margin-top:57px}.project-label{margin:0;font:10px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.projects .games{margin-top:8px}.projects .project-label:not(:first-child){margin-top:24px}@media(max-width:600px){.projects{margin-top:43px}}@media(max-height:500px){.projects{margin-top:20px}}
 </style></head>
 <body>
 <div class="code-field" aria-hidden="true">
@@ -76,7 +77,12 @@ return { connected: true };</pre>
 <p class="domain">kristian.network</p>
 <h1>Kristian Weeks</h1>
 <a id="resume" class="resume" href="KristianWeeksResume.pdf" download="Kristian-Weeks-Resume.pdf">Download résumé<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg></a>
+<section class="projects" aria-label="Projects">
+<h2 class="project-label">Software</h2>
+<nav class="games" aria-label="Software projects"><a href="https://verdantflow.pages.dev" title="Backflow testing workflow demo">Verdantflow<span class="arrow" aria-hidden="true">↗</span></a><span class="divider" aria-hidden="true"></span><a href="https://returnline-7x8.pages.dev" title="Outside-processing return register · sign-in required">Returnline<span class="arrow" aria-hidden="true">↗</span></a></nav>
+<h2 class="project-label">Games</h2>
 <nav class="games" aria-label="Games"><a href="https://flappypacket.com">Flappy Packet<span class="arrow" aria-hidden="true">↗</span></a><span class="divider" aria-hidden="true"></span><a href="https://verdantisles.com">Verdant Isles<span class="arrow" aria-hidden="true">↗</span></a></nav>
+</section>
 </div></main>
 <button class="motion" type="button" aria-label="Pause background motion" aria-pressed="false" hidden><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 3h2v10H4zm6 0h2v10h-2z"/></svg></button>
 <script>
