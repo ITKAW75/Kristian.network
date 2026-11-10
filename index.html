@@ -1,106 +1,1092 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1412">
-<meta name="description" content="Kristian Weeks. Résumé, software projects, and games.">
-<title>Kristian Weeks</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1412'/%3E%3Cpath d='M10 8v16m12-16-12 9 12 7' stroke='%23b5d9c6' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<meta name="description" content="Kristian Weeks. Software projects, RoCEv2 fabric visualizer, and games.">
+<title>Kristian Weeks | RoCEv2 AI Fabric Sentinel</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1412'/%3E%3Cpath d='M10 8v16m12-16-12 9 12 7' stroke='%23bdd9c9' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+
+<!-- Three.js (Zero external plugin dependencies) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
-:root{color-scheme:dark;--bg:#0b1412;--ink:#e9eeea;--muted:#a1b5aa;--green:#bdd9c9;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
-*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100svh;color:var(--ink);background:radial-gradient(ellipse at 50% 45%,#1a2d24 0%,#0e1915 42%,var(--bg) 78%);font-family:Arial,Helvetica,sans-serif}body::after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.95%,#a6d0b606 50%,transparent 50.05%),linear-gradient(transparent 49.95%,#a6d0b606 50%,transparent 50.05%)}::selection{color:var(--bg);background:var(--green)}a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:6px}
-.code-field{position:fixed;inset:0;overflow:hidden;pointer-events:none;user-select:none;mask-image:radial-gradient(ellipse at 50% 48%,transparent 15%,#0008 48%,#000 85%)}.code{position:absolute;margin:0;font:11px/2.1 var(--mono);letter-spacing:.04em;color:#8cb49d;opacity:.13;white-space:pre;animation:drift 70s ease-in-out infinite alternate}.code span{color:#d6e5ab}.code-a{top:7%;left:4%}.code-b{top:4%;right:3%;animation-delay:-29s}.code-c{bottom:3%;left:7%;animation-delay:-42s}.code-d{bottom:5%;right:5%;animation-delay:-16s}
-main{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center}.identity{margin-top:-28px}.domain{margin:0 0 26px;font:11px/1.5 var(--mono);letter-spacing:.18em;color:var(--muted)}.domain::before{content:"";display:inline-block;width:5px;height:5px;margin-right:11px;border-radius:50%;background:#9cbea8;vertical-align:2px;box-shadow:0 0 12px #9cbea844}h1{font-size:clamp(42px,6.4vw,76px);line-height:1.08;letter-spacing:-.055em;font-weight:400;margin:0 0 38px}
-.resume{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:52px;padding:0 25px;border:1px solid #c8e2d148;border-radius:7px;background:var(--green);color:#172b20;font:500 13px var(--mono);transition:background .2s,transform .2s}.resume:not([aria-disabled="true"]):hover{background:#d3e7dc;transform:translateY(-2px)}.resume[aria-disabled="true"]{cursor:default}.resume svg{width:16px;height:16px}.pending{margin:13px 0 0;font:10px/1.5 var(--mono);color:#a1b5aa}.games{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:25px;margin-top:57px;font:12px/1.5 var(--mono)}.games a{color:#a9bdb0;padding:10px 0;transition:color .2s}.games a:hover{color:#e9eeea}.arrow{margin-left:6px;opacity:.55}.divider{width:1px;height:12px;background:#9ab5a133}
-.motion{position:fixed;z-index:2;right:24px;bottom:22px;display:flex;align-items:center;justify-content:center;width:40px;height:40px;color:#92aa9b;border:1px solid #a6c0af22;border-radius:50%;background:#0b141280;cursor:pointer}.motion[hidden]{display:none}.motion:hover{border-color:#a6c0af66;color:var(--ink)}.motion svg{width:12px;height:12px}body[data-paused="true"] .code{animation-play-state:paused}@keyframes drift{from{transform:translateY(-8px)}to{transform:translateY(18px)}}
-@media(max-width:600px){.code{font-size:9px;opacity:.1}.code-a{left:-135px;top:4%}.code-b{right:-180px;top:12%}.code-c{left:-160px;bottom:2%}.code-d{right:-150px;bottom:9%}.identity{margin-top:-15px}h1{margin-bottom:32px}.domain{font-size:10px}.games{gap:19px;margin-top:43px;font-size:11px}.motion{right:14px;bottom:14px}}
-@media(prefers-reduced-motion:reduce){.code{animation:none}.resume,.games a{transition:none}.motion{display:none}}
-@media(max-height:500px){main{padding:35px 20px}.identity{margin-top:0}.domain{margin-bottom:12px}h1{font-size:42px;margin-bottom:20px}.games{margin-top:20px}}
-.projects{margin-top:57px}.project-label{margin:0;font:10px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.projects .games{margin-top:8px}.projects .project-label:not(:first-child){margin-top:24px}@media(max-width:600px){.projects{margin-top:43px}}@media(max-height:500px){.projects{margin-top:20px}}
-</style></head>
+:root{
+  color-scheme:dark;
+  --bg:#0b1412;
+  --panel:rgba(14, 25, 21, 0.88);
+  --border:rgba(189, 217, 201, 0.18);
+  --ink:#e9eeea;
+  --muted:#8fa89b;
+  --green:#bdd9c9;
+  --green-glow:rgba(189, 217, 201, 0.35);
+  --amber:#f59e0b;
+  --crimson:#f43f5e;
+  --cyan:#38bdf8;
+  --mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none}
+html{min-height:100%;background:var(--bg)}
+body{
+  margin:0;
+  min-height:100svh;
+  color:var(--ink);
+  background:radial-gradient(ellipse at 50% 50%,#15261e 0%,#0e1915 48%,var(--bg) 85%);
+  font-family:'Space Grotesk',sans-serif;
+  overflow:hidden;
+}
+
+/* CRT Scanlines */
+.crt-overlay{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  background:
+    radial-gradient(circle at center,transparent 60%,rgba(3,7,6,0.85) 100%),
+    linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.22) 50%);
+  background-size:100% 100%,100% 3px;
+}
+::selection{color:var(--bg);background:var(--green)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+
+/* Ambient Background Code */
+.code-field{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  user-select:none;
+  z-index:1;
+  mask-image:radial-gradient(ellipse at 50% 50%,transparent 25%,#0008 55%,#000 88%);
+}
+.code{
+  position:absolute;
+  margin:0;
+  font:11px/2.1 var(--mono);
+  letter-spacing:.04em;
+  color:#8cb49d;
+  opacity:.12;
+  white-space:pre;
+  animation:drift 70s ease-in-out infinite alternate;
+}
+.code span{color:#d6e5ab}
+.code-a{top:7%;left:4%}
+.code-b{top:4%;right:26%;animation-delay:-29s}
+.code-c{bottom:3%;left:7%;animation-delay:-42s}
+.code-d{bottom:5%;right:5%;animation-delay:-16s}
+@keyframes drift{from{transform:translateY(-8px)}to{transform:translateY(18px)}}
+
+#canvas-container{position:fixed;inset:0;z-index:1}
+
+/* Top-Left Fabric State Header */
+.header-left{
+  position:absolute;
+  top:1.25rem;
+  left:1.25rem;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+.brand-pill{
+  background:var(--panel);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  padding:0.55rem 1rem;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+.status-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  animation:ping 2s infinite;
+}
+@keyframes ping{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+.brand-pill h1{font-size:0.85rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase}
+.brand-pill span{color:var(--green);font-family:var(--mono);font-size:0.75rem}
+
+.pill{
+  background:var(--panel);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  padding:0.55rem 0.9rem;
+  border-radius:8px;
+  font-size:0.75rem;
+  font-family:var(--mono);
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.pill strong{color:var(--muted)}
+
+/* TOP-RIGHT IDENTITY & PROJECTS CARD */
+.identity-card{
+  position:absolute;
+  top:1.25rem;
+  right:1.25rem;
+  z-index:10;
+  background:var(--panel);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.1rem 1.35rem;
+  width:310px;
+  box-shadow:0 12px 36px rgba(0,0,0,0.55);
+}
+.identity-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px solid rgba(189, 217, 201, 0.12);
+  padding-bottom:0.6rem;
+  margin-bottom:0.75rem;
+}
+.identity-name{
+  font-size:1.15rem;
+  font-weight:700;
+  letter-spacing:-0.03em;
+  color:var(--ink);
+}
+.identity-domain{
+  font:10px/1.5 var(--mono);
+  letter-spacing:0.12em;
+  color:var(--green);
+}
+.section-tag{
+  font:9px/1.4 var(--mono);
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  margin-top:0.4rem;
+}
+.links-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font:11px/1.4 var(--mono);
+  margin-top:0.25rem;
+  margin-bottom:0.4rem;
+}
+.links-row a{
+  color:#cadfd2;
+  transition:color .2s, transform .2s;
+  display:inline-flex;
+  align-items:center;
+}
+.links-row a:hover{color:var(--ink);transform:translateY(-1px)}
+.links-row .arrow{margin-left:4px;opacity:0.6;font-size:9px}
+.links-row .sep{width:1px;height:10px;background:rgba(189,217,201,0.2)}
+
+/* Left Simulation Controls */
+.controls-matrix{
+  position:absolute;
+  top:5rem;
+  left:1.25rem;
+  z-index:10;
+  background:var(--panel);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1rem;
+  width:290px;
+  display:flex;
+  flex-direction:column;
+  gap:0.75rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+.matrix-title{
+  font-size:0.72rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+}
+.mode-btn{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--ink);
+  padding:0.6rem 0.8rem;
+  border-radius:7px;
+  cursor:pointer;
+  font:600 0.76rem 'Space Grotesk',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:all 0.2s;
+}
+.mode-btn:hover{background:rgba(189,217,201,0.15);border-color:var(--green);transform:translateX(3px)}
+.mode-btn.active{background:rgba(189,217,201,0.22);border-color:var(--green);box-shadow:0 0 12px var(--green-glow)}
+.mode-btn-amber:hover, .mode-btn-amber.active{background:rgba(245,158,11,0.2);border-color:var(--amber);box-shadow:0 0 12px rgba(245,158,11,0.25)}
+.mode-btn-crimson:hover, .mode-btn-crimson.active{background:rgba(244,63,94,0.2);border-color:var(--crimson);box-shadow:0 0 12px rgba(244,63,94,0.25)}
+
+/* Buffer Depth Oscilloscope */
+.hud-graph{
+  background:rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:7px;
+  padding:0.5rem;
+  margin-top:0.2rem;
+}
+.hud-canvas{width:100%;height:46px;display:block}
+
+/* Bottom-Left RoCEv2 BTH Packet Terminal */
+.telemetry-tray{
+  position:absolute;
+  bottom:1.25rem;
+  left:1.25rem;
+  z-index:10;
+  background:var(--panel);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:0.85rem 1rem;
+  width:460px;
+  height:180px;
+  font-family:var(--mono);
+  font-size:0.71rem;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 12px 36px rgba(0,0,0,0.6);
+}
+.tray-head{
+  display:grid;
+  grid-template-columns:85px 95px 85px 1fr;
+  color:var(--muted);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:0.35rem;
+  margin-bottom:0.35rem;
+  font-weight:700;
+}
+.tray-stream{
+  flex:1;
+  overflow-y:hidden;
+  display:flex;
+  flex-direction:column-reverse;
+  gap:0.25rem;
+}
+.stream-row{
+  display:grid;
+  grid-template-columns:85px 95px 85px 1fr;
+  opacity:0.9;
+  animation:streamIn 0.12s ease-out;
+}
+@keyframes streamIn{from{opacity:0;transform:translateY(-3px)}to{opacity:0.9}}
+
+/* Floating Edge WebGPU LLM Diagnostician Button */
+.ai-fab{
+  position:absolute;
+  bottom:1.25rem;
+  right:1.25rem;
+  z-index:20;
+  background:linear-gradient(135deg, #1f3d30, #10b981, #38bdf8);
+  color:#06110c;
+  border:1px solid rgba(255,255,255,0.3);
+  padding:0.85rem 1.4rem;
+  border-radius:999px;
+  font:700 0.86rem 'Space Grotesk',sans-serif;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  box-shadow:0 0 25px rgba(189,217,201,0.35);
+  transition:all 0.25s ease;
+}
+.ai-fab:hover{transform:scale(1.05);box-shadow:0 0 32px rgba(56,189,248,0.5)}
+
+/* AI Diagnostics Modal */
+.ai-modal{
+  position:absolute;
+  bottom:5.2rem;
+  right:1.25rem;
+  width:430px;
+  background:rgba(9,19,15,0.92);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.25rem;
+  z-index:25;
+  display:none;
+  flex-direction:column;
+  gap:0.85rem;
+  box-shadow:0 25px 60px rgba(0,0,0,0.75);
+}
+.ai-modal.active{display:flex}
+.ai-modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:0.5rem;
+}
+.ai-modal-header h3{font-size:0.92rem;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:0.5rem}
+.close-btn{cursor:pointer;color:var(--muted);font-size:1.1rem;transition:color .2s}
+.close-btn:hover{color:var(--crimson)}
+
+.engine-tag{
+  font-size:0.74rem;
+  color:var(--muted);
+  font-family:var(--mono);
+}
+.engine-tag strong{color:var(--green)}
+
+.ai-terminal{
+  background:rgba(0,0,0,0.55);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;
+  padding:0.85rem;
+  font-size:0.77rem;
+  line-height:1.5;
+  max-height:220px;
+  overflow-y:auto;
+  font-family:var(--mono);
+  color:#d4e5db;
+  border-left:3px solid var(--green);
+}
+
+.ai-progress-wrap{
+  display:none;
+  flex-direction:column;
+  gap:0.35rem;
+}
+.ai-progress-bar{
+  height:5px;
+  background:rgba(255, 255, 255, 0.1);
+  border-radius:3px;
+  overflow:hidden;
+}
+.ai-progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--green), var(--cyan));
+  transition:width 0.15s ease;
+}
+
+.run-ai-btn{
+  background:var(--green);
+  color:#0b1412;
+  border:none;
+  padding:0.7rem;
+  border-radius:7px;
+  cursor:pointer;
+  font:700 0.82rem 'Space Grotesk',sans-serif;
+  transition:all 0.2s;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.5rem;
+}
+.run-ai-btn:hover{background:#d5ebe0;box-shadow:0 0 16px var(--green-glow)}
+
+/* Spatial 3D Node Labels */
+.spatial-label{
+  position:absolute;
+  transform:translate(-50%,-100%);
+  pointer-events:none;
+  font-size:0.65rem;
+  font-family:var(--mono);
+  background:rgba(11,20,18,0.88);
+  padding:0.25rem 0.55rem;
+  border-radius:4px;
+  border:1px solid var(--green);
+  box-shadow:0 0 10px rgba(189,217,201,0.25);
+  white-space:nowrap;
+  z-index:5;
+  opacity:0;
+  transition:opacity 0.2s;
+}
+
+@media(max-width:820px){
+  .identity-card{width:calc(100vw - 2.5rem);left:1.25rem;top:auto;bottom:1.25rem}
+  .telemetry-tray{display:none}
+  .controls-matrix{width:240px;top:4.5rem}
+}
+</style>
+</head>
+
 <body>
+<div class="crt-overlay"></div>
+<div id="canvas-container"></div>
+
+<!-- Background Code Stream -->
 <div class="code-field" aria-hidden="true">
-<pre class="code code-a">01  <span>const</span> network = {
+<pre class="code code-a">01  <span>const</span> fabric = {
 02    nodes: new Map(),
 03    routes: [],
-04    connected: true
+04    lossless: true
 05  };
-06
-07  <span>async function</span> connect(source, destination) {
-08    const route = await resolve(destination);
-09    return source.send(route);
-10  }
-11
-12  packet.on('receive', ({ payload }) => {
-13    network.nodes.set(payload.id, payload);
-14  });</pre>
-<pre class="code code-b">// a little room to explore
-
-<span>function</span> step(world, delta) {
-  const direction = normalize(world.wind);
-  const next = world.position.add(direction);
-
-  return {
-    ...world,
-    position: next,
-    time: world.time + delta
-  };
-}
-
-requestAnimationFrame(render);</pre>
-<pre class="code code-c"><span>export const</span> scene = {
-  sky: 'quiet',
-  light: { warm: true, intensity: 0.6 },
-  water: { speed: 0.12, reflect: true },
-  islands: []
-};
-
-<span>function</span> update(dt) {
-  scene.water.time += dt;
-  camera.lookAt(horizon);
-  renderer.draw(scene);
+06  <span>async function</span> transmit(qp, psn) {
+07    const route = await resolve(qp);
+08    return fabric.send(route);
+09  }</pre>
+<pre class="code code-b"><span>function</span> dcqcn(flow, delta) {
+  const ecn = flow.ecn_marked;
+  if (ecn) flow.rate *= 0.5;
+  return flow;
 }</pre>
+<pre class="code code-c"><span>export const</span> spine = {
+  mtu: 4096,
+  pfc_headroom_kb: 120,
+  wred_kmin: 240
+};</pre>
 <pre class="code code-d">01001011  01010111
-
-<span>const</span> packet = createPacket();
-const path = findRoute(origin, destination);
-
-for (const node of path) {
-  await packet.travel(node);
-  if (node.available) continue;
-  await findAnotherWay();
-}
-
-return { connected: true };</pre>
+<span>const</span> packet = createRoCE();
+packet.opcode = 0x81; // CNP
+await packet.route();</pre>
 </div>
-<main><div class="identity">
-<p class="domain">kristian.network</p>
-<h1>Kristian Weeks</h1>
-<a id="resume" class="resume" href="KristianWeeksResume.pdf" download="Kristian-Weeks-Resume.pdf">Download résumé<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg></a>
-<section class="projects" aria-label="Projects">
-<h2 class="project-label">Software</h2>
-<nav class="games" aria-label="Software projects"><a href="https://verdantflow.pages.dev" title="Backflow testing workflow demo">Verdantflow<span class="arrow" aria-hidden="true">↗</span></a><span class="divider" aria-hidden="true"></span><a href="https://returnline-7x8.pages.dev" title="Outside-processing return register · sign-in required">Returnline<span class="arrow" aria-hidden="true">↗</span></a></nav>
-<h2 class="project-label">Games</h2>
-<nav class="games" aria-label="Games"><a href="https://flappypacket.com">Flappy Packet<span class="arrow" aria-hidden="true">↗</span></a><span class="divider" aria-hidden="true"></span><a href="https://verdantisles.com">Verdant Isles<span class="arrow" aria-hidden="true">↗</span></a></nav>
-</section>
-</div></main>
-<button class="motion" type="button" aria-label="Pause background motion" aria-pressed="false" hidden><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 3h2v10H4zm6 0h2v10h-2z"/></svg></button>
+
+<!-- Spatial Dynamic Tags -->
+<div id="label-nodeA" class="spatial-label">GPU POD A [QP:0x1042]</div>
+<div id="label-switch" class="spatial-label">TOR SWITCH [800G ASIC]</div>
+<div id="label-nodeB" class="spatial-label">GPU POD B [QP:0x1042]</div>
+
+<!-- Header Left: Status Pills -->
+<div class="header-left">
+  <div class="brand-pill">
+    <div class="status-dot" id="hdr-dot"></div>
+    <h1>RoCEv2 Fabric</h1>
+    <span id="hdr-state">800G NOMINAL</span>
+  </div>
+  <div class="pill" style="cursor:pointer;" onclick="toggleAudio()" id="audio-pill">
+    <strong>AUDIO:</strong> <span style="color:var(--green)">MUTED</span>
+  </div>
+</div>
+
+<!-- TOP-RIGHT IDENTITY & PROJECTS CARD -->
+<div class="identity-card">
+  <div class="identity-header">
+    <div class="identity-name">Kristian Weeks</div>
+    <div class="identity-domain">kristian.network</div>
+  </div>
+
+  <div class="section-tag">Software</div>
+  <div class="links-row">
+    <a href="https://verdantflow.pages.dev" target="_blank" rel="noopener">Verdantflow<span class="arrow">↗</span></a>
+    <span class="sep"></span>
+    <a href="https://returnline-7x8.pages.dev" target="_blank" rel="noopener">Returnline<span class="arrow">↗</span></a>
+  </div>
+
+  <div class="section-tag">Games</div>
+  <div class="links-row">
+    <a href="https://flappypacket.com" target="_blank" rel="noopener">Flappy Packet<span class="arrow">↗</span></a>
+    <span class="sep"></span>
+    <a href="https://verdantisles.com" target="_blank" rel="noopener">Verdant Isles<span class="arrow">↗</span></a>
+  </div>
+</div>
+
+<!-- Left Controls & Buffer Depth Graph -->
+<div class="controls-matrix">
+  <div class="matrix-title">
+    <span>Fabric Traffic Modes</span>
+    <span id="pfc-state" style="color:var(--green)">PFC: OK</span>
+  </div>
+  <button class="mode-btn active" id="btn-normal" onclick="setMode('normal')">
+    <span>🟢 Balanced AllReduce</span>
+    <span style="font-size:0.65rem; color:var(--muted)">800G Link</span>
+  </button>
+  <button class="mode-btn mode-btn-amber" id="btn-incast" onclick="setMode('incast')">
+    <span>🟡 Incast (ECN / CNP)</span>
+    <span style="font-size:0.65rem; color:var(--amber)">Queue Spike</span>
+  </button>
+  <button class="mode-btn mode-btn-crimson" id="btn-pfc" onclick="setMode('pfc_storm')">
+    <span>🔴 PFC Deadlock Storm</span>
+    <span style="font-size:0.65rem; color:var(--crimson)">Buffer Pause</span>
+  </button>
+
+  <div class="hud-graph">
+    <div class="matrix-title" style="margin-bottom:0.3rem;">
+      <span>Switch Buffer Depth</span>
+      <span id="buffer-val" style="color:var(--green)">14%</span>
+    </div>
+    <canvas id="scope-canvas" class="hud-canvas" width="270" height="46"></canvas>
+  </div>
+</div>
+
+<!-- Bottom-Left RoCEv2 BTH Packet Telemetry -->
+<div class="telemetry-tray">
+  <div class="tray-head">
+    <span>OPCODE</span>
+    <span>DEST QP</span>
+    <span>PSN</span>
+    <span>FLAGS</span>
+  </div>
+  <div class="tray-stream" id="telemetry-stream"></div>
+</div>
+
+<!-- Floating WebGPU AI Diagnostician Button -->
+<button class="ai-fab" onclick="toggleModal()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+  </svg>
+  Edge WebGPU LLM
+</button>
+
+<!-- AI Diagnostics Modal -->
+<div class="ai-modal" id="ai-modal">
+  <div class="ai-modal-header">
+    <h3>
+      <span style="color:var(--green)">⚡</span>
+      RoCEv2 Local Diagnostician
+    </h3>
+    <span class="close-btn" onclick="toggleModal()">✕</span>
+  </div>
+
+  <div class="engine-tag">
+    Model: <strong>SmolLM2-360M-Instruct (WebGPU Local)</strong>
+  </div>
+
+  <div class="ai-terminal" id="ai-output">
+    Click "Analyze Fabric with Local LLM" below. The browser will run the quantized LLM on your GPU and diagnose real-time buffer queues.
+  </div>
+
+  <div class="ai-progress-wrap" id="ai-progress-wrap">
+    <div style="font-size:0.7rem; color:var(--muted); font-family:var(--mono);" id="ai-progress-text">Downloading weights...</div>
+    <div class="ai-progress-bar"><div class="ai-progress-fill" id="ai-progress-fill"></div></div>
+  </div>
+
+  <button class="run-ai-btn" id="run-ai-btn" onclick="triggerWebLLMDiagnosis()">
+    Analyze Fabric with Local LLM
+  </button>
+</div>
+
+<!-- 1. 3D Scene, Audio, Simulation Loop -->
 <script>
 'use strict';
-const motion = document.querySelector('.motion');
-const preference = matchMedia('(prefers-reduced-motion: reduce)');
-let userPaused = false;
-function syncMotion() {
-  document.body.dataset.paused = String(userPaused || preference.matches || document.hidden);
-  motion.setAttribute('aria-pressed', String(userPaused));
-  motion.setAttribute('aria-label', userPaused ? 'Resume background motion' : 'Pause background motion');
-  motion.innerHTML = userPaused
-    ? '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m5 2 9 6-9 6z"/></svg>'
-    : '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 3h2v10H4zm6 0h2v10h-2z"/></svg>';
+
+// Web Audio synthesizer
+let audioCtx = null;
+let audioEnabled = false;
+
+function toggleAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  audioEnabled = !audioEnabled;
+  const pill = document.getElementById('audio-pill');
+  pill.innerHTML = `<strong>AUDIO:</strong> <span style="color:${audioEnabled ? 'var(--green)' : 'var(--muted)'}">${audioEnabled ? 'ENABLED' : 'MUTED'}</span>`;
 }
-motion.hidden = false;
-motion.addEventListener('click', () => { userPaused = !userPaused; syncMotion(); });
-preference.addEventListener('change', syncMotion);
-document.addEventListener('visibilitychange', syncMotion);
-syncMotion();
-</script></body></html>
+
+function playSound(freq, dur = 0.035, type = 'sine') {
+  if (!audioEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + dur);
+  } catch(e) {}
+}
+
+// Three.js Scene Setup
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0b1412, 0.024);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 7.5, 18);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+container.appendChild(renderer.domElement);
+
+// Self-contained Orbit Controls (Zero external dependencies)
+let isDragging = false;
+let prevMousePos = { x: 0, y: 0 };
+let spherical = { radius: 18, theta: 0, phi: Math.PI / 3.4 };
+
+function updateCameraPosition() {
+  camera.position.x = spherical.radius * Math.sin(spherical.phi) * Math.sin(spherical.theta);
+  camera.position.y = spherical.radius * Math.cos(spherical.phi) + 0.4;
+  camera.position.z = spherical.radius * Math.sin(spherical.phi) * Math.cos(spherical.theta);
+  camera.lookAt(0, 0.4, 0);
+}
+updateCameraPosition();
+
+window.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.identity-card') || e.target.closest('.controls-matrix') || e.target.closest('.telemetry-tray') || e.target.closest('.ai-modal') || e.target.closest('.ai-fab')) return;
+  isDragging = true;
+  prevMousePos = { x: e.clientX, y: e.clientY };
+});
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const deltaX = e.clientX - prevMousePos.x;
+  const deltaY = e.clientY - prevMousePos.y;
+  spherical.theta -= deltaX * 0.006;
+  spherical.phi = Math.max(0.15, Math.min(Math.PI / 2.05, spherical.phi - deltaY * 0.006));
+  prevMousePos = { x: e.clientX, y: e.clientY };
+  updateCameraPosition();
+});
+window.addEventListener('mouseup', () => { isDragging = false; });
+window.addEventListener('wheel', (e) => {
+  if (e.target.closest('.telemetry-tray') || e.target.closest('.ai-terminal')) return;
+  spherical.radius = Math.max(9, Math.min(28, spherical.radius + e.deltaY * 0.015));
+  updateCameraPosition();
+}, { passive: true });
+
+// Ground Grid
+const grid = new THREE.GridHelper(50, 50, 0x1a2d24, 0x0f1c16);
+grid.position.y = -1.6;
+scene.add(grid);
+
+// Lights
+scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+const dirLight = new THREE.DirectionalLight(0xbdd9c9, 1.4);
+dirLight.position.set(6, 14, 10);
+scene.add(dirLight);
+
+// Fabric Chassis & Rotating GPUs
+const nodeGroup = new THREE.Group();
+nodeGroup.position.y = 0.4;
+scene.add(nodeGroup);
+
+const spinningFans = [];
+const blinkers = [];
+
+// Realistic 3D AI GPU Graphics Card Builder
+function buildGPUCard(x, z, labelColor) {
+  const gpu = new THREE.Group();
+
+  // Dark PCB Backplate
+  const pcbGeom = new THREE.BoxGeometry(3.6, 1.8, 0.12);
+  const pcbMat = new THREE.MeshStandardMaterial({ color: 0x0a1410, roughness: 0.5, metalness: 0.6 });
+  const pcb = new THREE.Mesh(pcbGeom, pcbMat);
+  gpu.add(pcb);
+
+  // Metallic Heatsink Shroud
+  const shroudGeom = new THREE.BoxGeometry(3.5, 1.7, 0.45);
+  const shroudMat = new THREE.MeshStandardMaterial({ color: 0x14241d, roughness: 0.3, metalness: 0.85 });
+  const shroud = new THREE.Mesh(shroudGeom, shroudMat);
+  shroud.position.set(0, 0, 0.28);
+  gpu.add(shroud);
+
+  // PCIe Gold Connector Pins
+  const pcieGeom = new THREE.BoxGeometry(2.4, 0.18, 0.06);
+  const pcieMat = new THREE.MeshBasicMaterial({ color: 0xd4af37 });
+  const pcie = new THREE.Mesh(pcieGeom, pcieMat);
+  pcie.position.set(0, -0.96, 0.05);
+  gpu.add(pcie);
+
+  // Glowing Top LED Edge
+  const ledGeom = new THREE.PlaneGeometry(3.0, 0.08);
+  const ledMat = new THREE.MeshBasicMaterial({ color: labelColor });
+  const led = new THREE.Mesh(ledGeom, ledMat);
+  led.position.set(0, 0.86, 0.48);
+  gpu.add(led);
+
+  // Dual Spinning Cooling Fans
+  [-0.9, 0.9].forEach(fanX => {
+    // Fan Well
+    const wellGeom = new THREE.CylinderGeometry(0.55, 0.55, 0.08, 18);
+    const wellMat = new THREE.MeshBasicMaterial({ color: 0x060c09 });
+    const well = new THREE.Mesh(wellGeom, wellMat);
+    well.rotation.x = Math.PI / 2;
+    well.position.set(fanX, 0, 0.48);
+    gpu.add(well);
+
+    // Fan Rotor & Blades
+    const fanRotor = new THREE.Group();
+    fanRotor.position.set(fanX, 0, 0.52);
+
+    const hubGeom = new THREE.CylinderGeometry(0.18, 0.18, 0.06, 12);
+    const hubMat = new THREE.MeshStandardMaterial({ color: 0x22362c });
+    const hub = new THREE.Mesh(hubGeom, hubMat);
+    hub.rotation.x = Math.PI / 2;
+    fanRotor.add(hub);
+
+    // 5 Curved Fan Blades
+    for (let b = 0; b < 5; b++) {
+      const angle = (b / 5) * Math.PI * 2;
+      const bladeGeom = new THREE.BoxGeometry(0.38, 0.08, 0.02);
+      const bladeMat = new THREE.MeshBasicMaterial({ color: 0x8cb49d });
+      const blade = new THREE.Mesh(bladeGeom, bladeMat);
+      blade.position.set(Math.cos(angle) * 0.26, Math.sin(angle) * 0.26, 0);
+      blade.rotation.z = angle + 0.35;
+      fanRotor.add(blade);
+    }
+
+    gpu.add(fanRotor);
+    spinningFans.push(fanRotor);
+  });
+
+  gpu.position.set(x, 0, z);
+  nodeGroup.add(gpu);
+  return gpu;
+}
+
+// Center 800G Spine/ToR Switch Chassis
+function buildSwitchNode(x, z) {
+  const sw = new THREE.Group();
+  const geom = new THREE.BoxGeometry(3.6, 1.4, 2.0);
+  const mat = new THREE.MeshStandardMaterial({ color: 0x0e1b15, metalness: 0.85, roughness: 0.25 });
+  const mesh = new THREE.Mesh(geom, mat);
+  sw.add(mesh);
+
+  const faceGeom = new THREE.PlaneGeometry(3.4, 1.15);
+  const faceMat = new THREE.MeshBasicMaterial({ color: 0x050b08 });
+  const face = new THREE.Mesh(faceGeom, faceMat);
+  face.position.set(0, 0, 1.01);
+  sw.add(face);
+
+  const neonBar = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 0.08), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+  neonBar.position.set(0, 0.38, 1.02);
+  sw.add(neonBar);
+
+  // 800G Transceiver Port Activity LEDs
+  for (let i = 0; i < 8; i++) {
+    const dotGeom = new THREE.CircleGeometry(0.04, 8);
+    const dotMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+    const dot = new THREE.Mesh(dotGeom, dotMat);
+    dot.position.set(-1.2 + (i * 0.34), -0.22, 1.02);
+    sw.add(dot);
+    blinkers.push(dotMat);
+  }
+
+  sw.position.set(x, 0, z);
+  nodeGroup.add(sw);
+  return sw;
+}
+
+const nodeA = buildGPUCard(-6.6, 0, 0x8cb49d);
+const switchNode = buildSwitchNode(0, 0.5);
+const nodeB = buildGPUCard(6.6, 0, 0x8cb49d);
+
+// Routing Fiber Cables
+function buildFiber(p1, p2) {
+  const mid = new THREE.Vector3((p1.x + p2.x)/2, -0.9, (p1.z + p2.z)/2);
+  const curve = new THREE.CatmullRomCurve3([p1, mid, p2]);
+  const tube = new THREE.Mesh(
+    new THREE.TubeGeometry(curve, 28, 0.05, 8, false),
+    new THREE.MeshBasicMaterial({ color: 0x1e362b })
+  );
+  nodeGroup.add(tube);
+  return curve;
+}
+
+const cableAtoSwitch = buildFiber(nodeA.position, switchNode.position);
+const cableSwitchtoB = buildFiber(switchNode.position, nodeB.position);
+
+// Telemetry & Packet Engine State
+let currentMode = 'normal';
+let bufferOccupancy = 14;
+let packets = [];
+const packetGeom = new THREE.SphereGeometry(0.16, 10, 10);
+
+const OPCODES = {
+  WRITE: { name: '0x0A (RDMA_WRITE)', color: 0xbdd9c9, flag: 'SOLICITED', hex: '#bdd9c9' },
+  ECN: { name: '0x0A (RDMA_WRITE)', color: 0xf59e0b, flag: 'ECN: CE 0b11', hex: '#f59e0b' },
+  CNP: { name: '0x81 (CNP_BACKPRESSURE)', color: 0xf43f5e, flag: 'BTH_ALERT', hex: '#f43f5e' },
+  PFC: { name: 'PRIO_PAUSE_FRAME', color: 0xa855f7, flag: 'PORT_STALL', hex: '#a855f7' }
+};
+
+function setMode(mode) {
+  currentMode = mode;
+  ['btn-normal', 'btn-incast', 'btn-pfc'].forEach(id => document.getElementById(id).classList.remove('active'));
+  const hdr = document.getElementById('hdr-state');
+  const dot = document.getElementById('hdr-dot');
+  const pfc = document.getElementById('pfc-state');
+
+  if (mode === 'normal') {
+    document.getElementById('btn-normal').classList.add('active');
+    hdr.innerText = "800G NOMINAL";
+    hdr.style.color = "var(--green)";
+    dot.style.background = "var(--green)";
+    pfc.innerText = "PFC: OK";
+    pfc.style.color = "var(--green)";
+  } else if (mode === 'incast') {
+    document.getElementById('btn-incast').classList.add('active');
+    hdr.innerText = "INCAST (ECN/CNP)";
+    hdr.style.color = "var(--amber)";
+    dot.style.background = "var(--amber)";
+    pfc.innerText = "DCQCN THROTTLING";
+    pfc.style.color = "var(--amber)";
+  } else {
+    document.getElementById('btn-pfc').classList.add('active');
+    hdr.innerText = "DEADLOCK STORM";
+    hdr.style.color = "var(--crimson)";
+    dot.style.background = "var(--crimson)";
+    pfc.innerText = "PFC STORM ACTIVE";
+    pfc.style.color = "var(--crimson)";
+  }
+}
+
+function spawnPacket(forced = false) {
+  let meta = OPCODES.WRITE;
+  let curve = Math.random() > 0.5 ? cableAtoSwitch : cableSwitchtoB;
+
+  if (currentMode === 'incast') {
+    bufferOccupancy = Math.min(94, bufferOccupancy + 4.2);
+    if (bufferOccupancy > 60) meta = OPCODES.ECN;
+    if (Math.random() > 0.55) {
+      meta = OPCODES.CNP;
+      curve = cableSwitchtoB;
+      playSound(580, 0.05, 'triangle');
+    } else {
+      playSound(940, 0.02, 'sine');
+    }
+  } else if (currentMode === 'pfc_storm') {
+    bufferOccupancy = 98;
+    meta = OPCODES.PFC;
+    playSound(240, 0.08, 'sawtooth');
+  } else {
+    bufferOccupancy = Math.max(10, bufferOccupancy - 2.2);
+    playSound(1080, 0.015, 'sine');
+  }
+
+  const bEl = document.getElementById('buffer-val');
+  if (bEl) bEl.innerText = `${Math.round(bufferOccupancy)}%`;
+
+  const mat = new THREE.MeshBasicMaterial({ color: meta.color });
+  const mesh = new THREE.Mesh(packetGeom, mat);
+  nodeGroup.add(mesh);
+
+  const packet = {
+    mesh,
+    curve,
+    progress: 0,
+    speed: currentMode === 'pfc_storm' ? 0.005 : (forced ? 0.035 : 0.022),
+    meta,
+    qpn: '0x001042',
+    psn: Math.floor(100000 + Math.random() * 900000)
+  };
+
+  packets.push(packet);
+  pushStreamRow(packet);
+}
+
+function pushStreamRow(p) {
+  const stream = document.getElementById('telemetry-stream');
+  if (!stream) return;
+  const row = document.createElement('div');
+  row.className = 'stream-row';
+  row.innerHTML = `
+    <span style="color:${p.meta.hex}">${p.meta.name.split(' ')[0]}</span>
+    <span>${p.qpn}</span>
+    <span>${p.psn}</span>
+    <span style="color:${p.meta.color === 0xf43f5e ? 'var(--crimson)' : 'var(--muted)'}">${p.meta.flag}</span>
+  `;
+  stream.prepend(row);
+  if (stream.children.length > 25) stream.removeChild(stream.lastChild);
+}
+
+// Oscilloscope HUD
+const scopeCanvas = document.getElementById('scope-canvas');
+const ctx = scopeCanvas ? scopeCanvas.getContext('2d') : null;
+const historyData = new Array(50).fill(14);
+
+function updateScope() {
+  if (!scopeCanvas || !ctx) return;
+  historyData.push(bufferOccupancy + (Math.random() * 3 - 1.5));
+  historyData.shift();
+
+  ctx.clearRect(0, 0, scopeCanvas.width, scopeCanvas.height);
+  ctx.beginPath();
+  ctx.strokeStyle = bufferOccupancy > 80 ? '#f43f5e' : (bufferOccupancy > 50 ? '#f59e0b' : '#bdd9c9');
+  ctx.lineWidth = 1.6;
+
+  const step = scopeCanvas.width / (historyData.length - 1);
+  historyData.forEach((val, i) => {
+    const y = scopeCanvas.height - (val / 100 * scopeCanvas.height);
+    if (i === 0) ctx.moveTo(0, y);
+    else ctx.lineTo(i * step, y);
+  });
+  ctx.stroke();
+}
+updateScope();
+spawnPacket(false);
+
+// Spatial 3D Markers Sync
+function updateSpatialLabels() {
+  const map = [
+    { obj: nodeA, el: document.getElementById('label-nodeA') },
+    { obj: switchNode, el: document.getElementById('label-switch') },
+    { obj: nodeB, el: document.getElementById('label-nodeB') }
+  ];
+  map.forEach(item => {
+    if (!item.el || !item.obj) return;
+    const tempV = new THREE.Vector3();
+    item.obj.getWorldPosition(tempV);
+    tempV.y += 1.3;
+    tempV.project(camera);
+    if (tempV.z < 1) {
+      const x = (tempV.x * .5 + .5) * window.innerWidth;
+      const y = (-(tempV.y * .5) + .5) * window.innerHeight;
+      item.el.style.left = `${x}px`;
+      item.el.style.top = `${y}px`;
+      item.el.style.opacity = '1';
+    } else {
+      item.el.style.opacity = '0';
+    }
+  });
+}
+
+// Click Canvas to Burst Packets
+window.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('.identity-card') || e.target.closest('.controls-matrix') || e.target.closest('.telemetry-tray') || e.target.closest('.ai-modal') || e.target.closest('.ai-fab')) return;
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => spawnPacket(true), i * 55);
+  }
+});
+
+// Render Loop
+let lastSpawn = 0;
+function animate(time) {
+  requestAnimationFrame(animate);
+  updateSpatialLabels();
+
+  // Actively rotate the dual cooling fans on each GPU
+  spinningFans.forEach(fan => {
+    fan.rotation.z += 0.16;
+  });
+
+  const interval = currentMode === 'incast' ? 70 : 230;
+  if (time - lastSpawn > interval) {
+    spawnPacket(false);
+    updateScope();
+    lastSpawn = time;
+  }
+
+  // Blinking switch LEDs
+  blinkers.forEach(mat => {
+    if (Math.random() > 0.96) mat.color.setHex(Math.random() > 0.5 ? 0x8cb49d : 0xbdd9c9);
+  });
+
+  for (let i = packets.length - 1; i >= 0; i--) {
+    const p = packets[i];
+    p.progress += p.speed;
+    if (p.progress >= 1) {
+      nodeGroup.remove(p.mesh);
+      packets.splice(i, 1);
+    } else {
+      p.mesh.position.copy(p.curve.getPoint(p.progress));
+    }
+  }
+
+  // Continuous 3D rotation of entire GPU cluster
+  nodeGroup.rotation.y += 0.0035;
+
+  renderer.render(scene, camera);
+}
+animate(0);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  updateCameraPosition();
+});
+
+function toggleModal() {
+  document.getElementById('ai-modal').classList.toggle('active');
+}
+</script>
+
+<!-- 2. Pure Edge WebGPU LLM In-Browser Engine -->
+<script type="module">
+  import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+
+  // Compact 4-bit edge model (~220MB, cached in browser IndexedDB/Cache API)
+  const MODEL_ID = "SmolLM2-360M-Instruct-q4f16_1-MLC";
+  let engine = null;
+  let isInitializing = false;
+
+  async function getEngine() {
+    if (engine) return engine;
+    if (isInitializing) return null;
+
+    const progressWrap = document.getElementById('ai-progress-wrap');
+    const progressFill = document.getElementById('ai-progress-fill');
+    const progressText = document.getElementById('ai-progress-text');
+    const btn = document.getElementById('run-ai-btn');
+
+    progressWrap.style.display = 'flex';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.innerText = 'Initializing WebGPU...';
+
+    try {
+      isInitializing = true;
+      engine = await webllm.CreateMLCEngine(MODEL_ID, {
+        initProgressCallback: (report) => {
+          const pct = Math.round(report.progress * 100);
+          progressFill.style.width = `${pct}%`;
+          progressText.innerText = `Loading local model: ${pct}% (${report.text})`;
+        }
+      });
+      isInitializing = false;
+      progressWrap.style.display = 'none';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.innerText = 'Analyze Fabric with Local LLM';
+      return engine;
+    } catch (err) {
+      isInitializing = false;
+      progressWrap.style.display = 'none';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.innerText = 'Analyze Fabric with Local LLM';
+      throw err;
+    }
+  }
+
+  window.triggerWebLLMDiagnosis = async function() {
+    const output = document.getElementById('ai-output');
+    output.innerText = "Checking WebGPU hardware support...";
+
+    if (!navigator.gpu) {
+      output.innerText = "Error: WebGPU is not supported or enabled in this browser. Please use Chrome/Edge on Windows 11 with hardware acceleration enabled.";
+      return;
+    }
+
+    try {
+      const ai = await getEngine();
+      if (!ai) return;
+
+      output.innerText = "Inspecting fabric telemetry counters and running local neural inference on your GPU...\n";
+
+      const promptContext = `You are an AI Data Center Fabric Network Engineer.
+Analyze this RoCEv2 (RDMA over Converged Ethernet) incident snapshot:
+- Ingress Switch Queue Depth: ${Math.round(bufferOccupancy)}%
+- Active Traffic Scenario: ${currentMode}
+- Congestion Controls: DCQCN (ECN Marking active), PFC Watchdog armed
+
+In 2 short, highly technical bullet points:
+1. Root cause analysis (PFC Deadlock, Incast queue pressure, or Optimal line-rate).
+2. Remediation command or DCQCN parameter change (e.g., adjust dcqcn_kmin, pfc_watchdog_interval, or headroom pool).`;
+
+      const stream = await ai.chat.completions.create({
+        messages: [
+          { role: "system", content: "You are an autonomous AI RoCEv2 fabric diagnostician. Respond concisely and technically." },
+          { role: "user", content: promptContext }
+        ],
+        stream: true
+      });
+
+      output.innerText = "";
+      for await (const chunk of stream) {
+        output.innerText += chunk.choices[0]?.delta?.content || "";
+      }
+    } catch (err) {
+      output.innerText = `WebGPU LLM Execution Error: ${err.message}`;
+    }
+  };
+</script>
+</body>
+</html>
